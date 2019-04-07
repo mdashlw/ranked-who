@@ -1,0 +1,26 @@
+language: java
+jdk: oraclejdk8
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+before_install:
+  - chmod +x gradlew
+install: "./gradlew setupCIWorkspace"
+script: "./gradlew build"
+before_deploy:
+  - git config --local user.name "mdashlw"
+  - git config --local user.email "mdashlw@gmail.com"
+  - git tag $(cat version.txt)
+deploy:
+  provider: releases
+  api_key:
+    secure: 4BHIDjemvN2vfWwL6PHK7u1S2m+IPUkh6MIsyb2EGr6Z9Bbl/A7MyducjVFnOG9Z54aWBGyD9Su+u7Mj5Cr38ctTBHkCeo8POpiKKljVATCifzQXB1SnQIe8JVtj0kPfP0ghu+t0L5kRxOYhDVgjlceKdiV3FdL6dxVacSXYtVDnbif+1DutsrcPp9KfUcb3A+j56H4pfRyoP+3dQQSwvHNmDI6hF16gcFufkBGD9GCgoHa03ogK+Gn/RAZ34WU5FWyFZyp036WGQ7m/ttdK0ODHqrwY8/91TJLLvFph/voo2pKSq5poYTZvlyyzvmxDfg78/2Xd3zArpbQemyGfiRUyXLvkEcKty4emWGmNndDnBgtlnJnC3yGvgVir5NWK516xvkHkcyBXxTOCjN0YHUAL53Or85mZ4Pl0I1R7Yq1j5xo1bJlZqa6abt0SSn/eYXAxw9LdiGyEmUzdS0Aq/G9VOn2aIHle7jAK77UemHIEFLmyObifaoOVC6Q9khTp3D9I4xiKD3fkSTREby70HULcHpnP0CglGF9uiATfMreflkqPXCM8vviLYnWfG8xNyq2R2JTImnVGDyTxcJa079zDoWb1dzT9haAMA6JWHZl2mLcPTQKwKqBl9lPhZS8a+QHM/vZJyv90U7X26hCP59DPWw18A1Sx8nhlnfkD7eU=
+  file: build/libs/ranked-who-*-dist.jar
+  skip_cleanup: true
+  file_glob: true
+  on:
+    repo: mdashlw/ranked-who

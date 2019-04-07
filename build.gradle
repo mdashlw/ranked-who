@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'http://files.minecraftforge.net/maven'
+        }
+    }
+
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+    id 'net.minecraftforge.gradle.forge' version '2.0.2'
+}
+
+group 'ru.mdashlw.rankedwho'
+version '1.0.0'
+
+repositories {
+    jcenter()
+    maven {
+        url 'https://dl.bintray.com/mdashlw/maven/'
+    }
+}
+
+dependencies {
+    //noinspection DifferentStdlibGradleVersion
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.11'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'ru.mdashlw.util:common-util:1.0.8'
+    implementation 'ru.mdashlw.hypixel:hypixel-api:2.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8'
+    implementation 'org.kohsuke:github-api:1.95'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
+minecraft {
+    version = '1.8.9-11.15.1.2318-1.8.9'
+    runDir = 'run'
+    mappings = 'stable_22'
+    makeObfSourceJar = false
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+    }
+}
+
+shadowJar {
+    classifier = 'dist'
+}
+
+reobf {
+    //noinspection GroovyMissingReturnStatement
+    shadowJar {
+    }
+}
+
+task versionTxt() {
+    doLast {
+        file("$projectDir/version.txt").text = version
+    }
+}
+
+build.dependsOn(versionTxt)
