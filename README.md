@@ -2,6 +2,12 @@
 
 Helper mod for Ranked that shows players' ratings.
 
+## Warning
+
+**Don't expose to anyone you use this mod**
+
+If someone reports you, you probably will get banned.
+
 #### How to download
 
 Download the jar file from [**GitHub releases**](https://github.com/mdashlw/ranked-who/releases/latest).
