@@ -1,6 +1,6 @@
 # RankedWho
 
-Helper mod for Ranked that shows players' ratings.
+RankedWho is a helper mod for Ranked that shows players' ratings.
 
 ## Warning
 
@@ -14,7 +14,7 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 ## Preview
 
-`Team #{team_number}: {name} {rating} [{level}] ([active_kit])`
+`Team #team_number: name rating [level] (active_kit)`
 
 ![](https://cdn.discordapp.com/attachments/514759495721811987/564382089324265472/unknown.png)
 
