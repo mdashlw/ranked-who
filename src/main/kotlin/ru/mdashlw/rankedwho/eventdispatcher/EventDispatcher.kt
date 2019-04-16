@@ -1,4 +1,4 @@
-package ru.mdashlw.rankedwho.evdis
+package ru.mdashlw.rankedwho.eventdispatcher
 
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent

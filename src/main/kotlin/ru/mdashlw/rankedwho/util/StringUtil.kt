@@ -5,3 +5,7 @@ package ru.mdashlw.rankedwho.util
 import net.minecraft.util.ChatComponentText
 
 inline fun String.toChatComponent(): ChatComponentText = ChatComponentText(this)
+
+inline fun String.send() {
+    toChatComponent().send()
+}

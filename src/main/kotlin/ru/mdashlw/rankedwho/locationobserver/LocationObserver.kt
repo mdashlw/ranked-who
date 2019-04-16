@@ -1,4 +1,4 @@
-package ru.mdashlw.rankedwho.locobv
+package ru.mdashlw.rankedwho.locationobserver
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -12,13 +12,14 @@ import ru.mdashlw.rankedwho.OBJECT_MAPPER
 import ru.mdashlw.rankedwho.RankedWho
 import ru.mdashlw.rankedwho.reference.HYPIXEL_IP
 import ru.mdashlw.rankedwho.reference.LOCRAW_COMMAND
-import ru.mdashlw.rankedwho.util.minecraft
+import ru.mdashlw.rankedwho.reference.RANKED_MODE
+import ru.mdashlw.rankedwho.reference.SKYWARS_TYPE
 import ru.mdashlw.rankedwho.util.thePlayer
 import java.net.InetSocketAddress
 import java.util.concurrent.Executors
 
 object LocationObserver {
-    private val DISPATCHER = Executors.newSingleThreadScheduledExecutor().asCoroutineDispatcher()
+    private val dispatcher = Executors.newSingleThreadScheduledExecutor().asCoroutineDispatcher()
 
     private var waitingForLocation: Boolean = false
 
@@ -34,10 +35,10 @@ object LocationObserver {
 
         waitingForLocation = true
 
-        GlobalScope.launch(DISPATCHER) {
+        GlobalScope.launch(dispatcher) {
             delay(1000)
 
-            while (minecraft.thePlayer == null) {
+            while (thePlayer == null) {
                 delay(300)
             }
 
@@ -77,6 +78,6 @@ object LocationObserver {
         val gameType = json.get("gametype")?.asText() ?: return
         val mode = json.get("mode")?.asText() ?: return
 
-        RankedWho.isRanked = gameType == "SKYWARS" && mode == "ranked_normal"
+        RankedWho.isInRanked = gameType == SKYWARS_TYPE && mode == RANKED_MODE
     }
 }

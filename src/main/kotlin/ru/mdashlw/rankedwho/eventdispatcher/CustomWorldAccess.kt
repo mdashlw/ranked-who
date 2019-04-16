@@ -1,4 +1,4 @@
-package ru.mdashlw.rankedwho.evdis
+package ru.mdashlw.rankedwho.eventdispatcher
 
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
