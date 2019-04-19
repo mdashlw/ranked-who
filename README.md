@@ -18,9 +18,9 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 ![](https://cdn.discordapp.com/attachments/514759495721811987/564382089324265472/unknown.png)
 
-### Nicked Winner Reveal
+### Nicked Winner Reveal (WIP)
 
-If you join a lobby after the game where the winner is nicked, it will reveal and remember their name.
+If you join a lobby after the game where the winner was nicked, the mod will reveal their name and remember it for later use.
 
 ## License
 
