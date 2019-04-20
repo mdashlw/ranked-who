@@ -22,6 +22,16 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 If you join a lobby after the game where the winner was nicked, the mod will reveal their name and remember it for later use.
 
+#### TODO
+
+* Add options
+  * **autoWho** - should the mod type /who automatically.
+  * **ratingOnly** - if enabled, the mod will show rating only. Will be faster, because it omits a request to Hypixel API.
+  * etc
+* Display box on the screen with ratings:
+
+![](https://cdn.discordapp.com/attachments/458963086305525771/566844850151096320/unknown.png)
+
 ## License
 
 The project is licensed under the **[GNU GPL v3 license](https://choosealicense.com/licenses/gpl-3.0/)**.
