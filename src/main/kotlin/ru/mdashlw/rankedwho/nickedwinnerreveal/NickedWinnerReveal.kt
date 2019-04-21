@@ -24,7 +24,7 @@ object NickedWinnerReveal {
         val text = message.unformattedText
 
         when {
-            text == GAME_STATS && current != null -> {
+            GAME_STATS in text && current != null -> {
                 isCanceled = true
 
                 val clickEvent = message.chatStyle.chatClickEvent
