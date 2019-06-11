@@ -18,9 +18,7 @@ class RegularPlayer(
 ) : Player {
     override fun generateMessage(team: Int): String =
         "§fTeam #$team: §7$displayname §e${rating.format()} §f[§a$level§f] §f(§c$kit§f)" +
-                (nick?.let {
-                    " §d(nicked as §7$nick§d)"
-                } ?: "")
+                nick?.let { " §d(nicked as §7$nick§d)" }.orEmpty()
 
     companion object {
         fun create(player: HypixelPlayer, nick: String? = null): RegularPlayer {
