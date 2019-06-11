@@ -20,10 +20,10 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 ### Commands
 
-* /rankedwho toggle - Enable/disable the mod.
-* /rankedwho autoWho - Enable/disable auto who option.
-* /rankedwho <key> - Set Hypixel API key.
-* /rating <player> - Get player's rating.
+* `/rankedwho toggle` - Enable/disable the mod.
+* `/rankedwho autoWho` - Enable/disable auto who option.
+* `/rankedwho <key>` - Set Hypixel API key.
+* `/rating <player>` - Get player's rating.
 
 ### Nicked Winner Reveal
 
