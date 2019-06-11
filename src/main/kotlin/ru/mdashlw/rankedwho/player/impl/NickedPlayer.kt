@@ -4,7 +4,7 @@ import ru.mdashlw.rankedwho.managers.NickedManager
 import ru.mdashlw.rankedwho.player.Player
 
 class NickedPlayer(override val displayname: String) : Player {
-    override val rating: String = ""
+    override val rating: Int = -1
     override val kit: String = ""
     override val level: Int = 0
 

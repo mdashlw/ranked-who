@@ -13,21 +13,28 @@ import ru.mdashlw.rankedwho.reference.WHO_OUTPUT_PATTERN
 import ru.mdashlw.rankedwho.util.MinecraftUtil
 import ru.mdashlw.rankedwho.util.thePlayer
 import ru.mdashlw.rankedwho.util.toChatComponent
-import ru.mdashlw.util.matchresult.get
+import ru.mdashlw.util.get
 
 object Listener {
     @SubscribeEvent
     fun ClientChatReceivedEvent.onClientChatReceived() {
+        if (!MainConfiguration.toggled) {
+            return
+        }
+
         val text = message.unformattedText
 
         when {
             text == GAME_START -> {
                 isCanceled = true
-                thePlayer.sendChatMessage("/who")
+
+                if (MainConfiguration.autoWho) {
+                    thePlayer.sendChatMessage("/who")
+                }
             }
             text == WHO_OUTPUT_MODE -> isCanceled = true
             WHO_OUTPUT_PATTERN.matches(text) -> {
-                if (!RankedWho.isInRanked) {
+                if (!RankedWho.inRanked) {
                     return
                 }
 
@@ -50,15 +57,22 @@ object Listener {
 
     @SubscribeEvent
     fun PlayerJoinRankedEvent.onPlayerJoinRanked() {
+        if (!MainConfiguration.toggled) {
+            return
+        }
+
         RankedManager.clear()
 
-        @Suppress("RemoveRedundantQualifierName") // wtf
         MinecraftUtil.players.forEach(RankedManager::add)
     }
 
     @SubscribeEvent
     fun PlayerJoinWorldEvent.onPlayerJoinWorld() {
-        if (!RankedWho.isInRanked) {
+        if (!MainConfiguration.toggled) {
+            return
+        }
+
+        if (!RankedWho.inRanked) {
             return
         }
 

@@ -3,7 +3,7 @@ package ru.mdashlw.rankedwho.managers
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import ru.mdashlw.hypixel.HypixelAPI
+import ru.mdashlw.hypixel.api.HypixelApi
 import ru.mdashlw.rankedwho.RankedWho
 import ru.mdashlw.rankedwho.player.Player
 import ru.mdashlw.rankedwho.player.impl.NickedPlayer
@@ -15,7 +15,7 @@ object RankedManager {
     private val players: ConcurrentHashMap<String, Player> = ConcurrentHashMap()
 
     private fun retrieveInformation(name: String): Player {
-        val player = HypixelAPI.getPlayerByName(name)
+        val player = HypixelApi.retrievePlayerByName(name)
 
         return if (player == null) {
             NickedPlayer.create(name)
@@ -26,10 +26,7 @@ object RankedManager {
 
     private fun retrieveInformationAsync(name: String): Deferred<Player> =
         GlobalScope.async(RankedWho.pool) {
-            retrieveInformation(name)
-                .also {
-                    players[name] = it
-                }
+            retrieveInformation(name).also { players[name] = it }
         }
 
     fun get(player: String): Player? = players[player]
@@ -40,7 +37,6 @@ object RankedManager {
         jobs[player] = retrieveInformationAsync(player)
     }
 
-    // Don't use putIfAbsent
     fun addIfAbsent(player: String) {
         if (jobs.containsKey(player)) {
             return

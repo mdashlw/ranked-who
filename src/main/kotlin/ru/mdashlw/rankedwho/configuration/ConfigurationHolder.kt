@@ -1,6 +1,4 @@
-package ru.mdashlw.rankedwho.configuration.holder
-
-import ru.mdashlw.rankedwho.configuration.ConfigurationManager
+package ru.mdashlw.rankedwho.configuration
 
 abstract class ConfigurationHolder {
     abstract val category: String

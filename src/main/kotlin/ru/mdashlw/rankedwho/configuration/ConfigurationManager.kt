@@ -1,30 +1,31 @@
 package ru.mdashlw.rankedwho.configuration
 
 import net.minecraftforge.common.config.Property
+import ru.mdashlw.rankedwho.MainConfiguration
 import ru.mdashlw.rankedwho.RankedWho
 import ru.mdashlw.rankedwho.configuration.adapter.ConfigurationAdapter
-import ru.mdashlw.rankedwho.configuration.adapter.impl.UuidAdapter
-import ru.mdashlw.rankedwho.configuration.holder.ConfigurationHolder
-import ru.mdashlw.rankedwho.configuration.holder.impl.MainConfiguration
+import ru.mdashlw.rankedwho.configuration.adapter.impl.BooleanAdapter
+import ru.mdashlw.rankedwho.configuration.adapter.impl.StringAdapter
+import ru.mdashlw.rankedwho.configuration.adapter.register
 import kotlin.reflect.KClass
 
 object ConfigurationManager {
     val holders = mutableListOf<ConfigurationHolder>()
-    val adapters = mutableListOf<ConfigurationAdapter<Any>>()
+    val adapters = mutableMapOf<KClass<out Any>, ConfigurationAdapter<Any>>()
 
     fun registerMainConfiguration() {
         MainConfiguration.register()
     }
 
     fun registerDefaultAdapters() {
-        UuidAdapter.register()
+        StringAdapter.register()
+        BooleanAdapter.register()
     }
 
     @Suppress("UNCHECKED_CAST")
-    @Throws(RuntimeException::class)
     private fun <T : Any> getConfigurationAdapter(type: KClass<out T>): ConfigurationAdapter<T> =
-        adapters.find { it.type == type } as? ConfigurationAdapter<T>
-            ?: throw RuntimeException("No configuration adapter for type ${type.qualifiedName}")
+        adapters[type] as? ConfigurationAdapter<T>
+            ?: throw NotImplementedError("No configuration adapter for type ${type.qualifiedName}")
 
     fun load() {
         holders.forEach { holder ->

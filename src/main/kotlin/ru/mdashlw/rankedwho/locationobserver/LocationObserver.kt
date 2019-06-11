@@ -8,7 +8,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent
-import ru.mdashlw.rankedwho.OBJECT_MAPPER
 import ru.mdashlw.rankedwho.RankedWho
 import ru.mdashlw.rankedwho.reference.HYPIXEL_IP
 import ru.mdashlw.rankedwho.reference.LOCRAW_COMMAND
@@ -25,7 +24,7 @@ object LocationObserver {
 
     @SubscribeEvent
     fun WorldEvent.Load.onWorldLoad() {
-        if (!RankedWho.isOnHypixel) {
+        if (!RankedWho.onHypixel) {
             return
         }
 
@@ -50,12 +49,12 @@ object LocationObserver {
     fun FMLNetworkEvent.ClientConnectedToServerEvent.onClientConnectedToServer() {
         val address = (manager.remoteAddress as? InetSocketAddress)?.hostName ?: return
 
-        RankedWho.isOnHypixel = HYPIXEL_IP in address
+        RankedWho.onHypixel = HYPIXEL_IP in address
     }
 
     @SubscribeEvent
     fun FMLNetworkEvent.ClientDisconnectionFromServerEvent.onClientDisconnectionFromServer() {
-        RankedWho.isOnHypixel = false
+        RankedWho.onHypixel = false
     }
 
     @SubscribeEvent
@@ -73,11 +72,11 @@ object LocationObserver {
         isCanceled = true
         waitingForLocation = false
 
-        val json = OBJECT_MAPPER.readTree(text)
+        val json = RankedWho.jackson.readTree(text)
 
         val gameType = json.get("gametype")?.asText() ?: return
         val mode = json.get("mode")?.asText() ?: return
 
-        RankedWho.isInRanked = gameType == SKYWARS_TYPE && mode == RANKED_MODE
+        RankedWho.inRanked = gameType == SKYWARS_TYPE && mode == RANKED_MODE
     }
 }

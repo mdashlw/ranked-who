@@ -1,7 +1,5 @@
-package ru.mdashlw.rankedwho.configuration.property
+package ru.mdashlw.rankedwho.configuration
 
-import ru.mdashlw.rankedwho.configuration.ConfigurationManager
-import ru.mdashlw.rankedwho.configuration.holder.ConfigurationHolder
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

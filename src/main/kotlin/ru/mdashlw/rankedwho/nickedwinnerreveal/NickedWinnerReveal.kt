@@ -5,15 +5,15 @@ import kotlinx.coroutines.launch
 import net.minecraft.event.ClickEvent
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import ru.mdashlw.hypixel.api.ranked.HypixelRankedApi
 import ru.mdashlw.rankedwho.RankedWho
 import ru.mdashlw.rankedwho.managers.NickedManager
 import ru.mdashlw.rankedwho.managers.RankedManager
 import ru.mdashlw.rankedwho.player.impl.NickedPlayer
 import ru.mdashlw.rankedwho.reference.GAME_STATS
 import ru.mdashlw.rankedwho.reference.WINNER_PATTERN
-import ru.mdashlw.rankedwho.scraper.impl.StatsScraper
 import ru.mdashlw.rankedwho.util.send
-import ru.mdashlw.util.matchresult.get
+import ru.mdashlw.util.get
 
 // TODO Refactor
 object NickedWinnerReveal {
@@ -36,8 +36,8 @@ object NickedWinnerReveal {
                 val url = clickEvent.value
 
                 GlobalScope.launch(RankedWho.singlePool) {
-                    val scraper = StatsScraper(url)
-                    val winner = scraper.winner
+                    val game = HypixelRankedApi.retrieveGame(url.substringAfter("?id=")) ?: return@launch
+                    val winner = game.winner
 
                     NickedManager.put(current!!, winner)
 
@@ -50,10 +50,7 @@ object NickedWinnerReveal {
                 val match = WINNER_PATTERN.find(text)!!
                 val name = match[1]
 
-                val player = RankedManager.get(name) ?: return
-
-                @Suppress("FoldInitializerAndIfToElvis") // No, Kotlin
-                if (player !is NickedPlayer) {
+                if ((RankedManager.get(name) ?: return) !is NickedPlayer) {
                     return
                 }
 

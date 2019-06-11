@@ -2,7 +2,7 @@ package ru.mdashlw.rankedwho.player
 
 interface Player {
     val displayname: String
-    val rating: String
+    val rating: Int
     val level: Int
     val kit: String
 

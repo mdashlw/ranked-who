@@ -1,8 +1,9 @@
 package ru.mdashlw.rankedwho.command.impl
 
-import ru.mdashlw.hypixel.HypixelAPI
+import ru.mdashlw.hypixel.api.HypixelApi
+import ru.mdashlw.hypixel.api.ranked.HypixelRankedApi
+import ru.mdashlw.hypixel.api.ranked.exceptions.HypixelRankedApiException
 import ru.mdashlw.rankedwho.command.Command
-import ru.mdashlw.rankedwho.scraper.impl.PlayerScraper
 import ru.mdashlw.rankedwho.util.send
 
 object RatingCommand : Command() {
@@ -11,21 +12,31 @@ object RatingCommand : Command() {
 
     override fun execute(args: List<String>) {
         if (args.isEmpty()) {
-            "§fUsage: §a/rating <player>".send()
+            "§fUsage: §a/rating <player>§f.".send()
             return
         }
 
-        val player = HypixelAPI.getPlayerByName(args.first())
+        val player = HypixelApi.retrievePlayerByName(args.first())
 
         if (player == null) {
-            "§cPlayer does not exist".send()
+            "§cPlayer does not exist.".send()
             return
         }
 
-        val scraper = PlayerScraper(player.displayname)
+        val uuid = player.uuid
+        val rankedPlayer = try {
+            HypixelRankedApi.retrievePlayer(uuid)
+        } catch (exception: HypixelRankedApiException) {
+            null
+        }
 
-        val rating = scraper.rating
-        val position = scraper.position
+        if (rankedPlayer == null) {
+            "§cUnable to reach website.".send()
+            return
+        }
+
+        val rating = rankedPlayer.rating
+        val position = rankedPlayer.position
 
         "§fRating of ${player.formattedDisplayname}§f: §e$rating §b#$position".send()
     }
