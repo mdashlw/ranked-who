@@ -1,14 +1,12 @@
 # RankedWho
 
-RankedWho is a helper mod for Ranked that shows players' ratings.
+Helper mod for Hypixel that shows everyone's rating in Ranked SkyWars.
 
-## Warning
+## WARNING
 
-**Do not expose to anyone you use this mod.**
+Do NOT expose to anyone that you use this mod. If someone reports you using this mod, you will get you banned from the server.
 
-If you get reported, you will get punished.
-
-#### How to download
+### How to download
 
 Download the jar file from [**GitHub releases**](https://github.com/mdashlw/ranked-who/releases/latest).
 
@@ -20,20 +18,13 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 ### Commands
 
-* `/rankedwho toggle` - Enable/disable the mod.
-* `/rankedwho autoWho` - Enable/disable auto who option.
-* `/rankedwho <key>` - Set Hypixel API key.
-* `/rating <player>` - Get player's rating.
+* `/rankedwho toggle` - Turn on/off the mod.
+* `/rankedwho autoWho` - Turn on/off the auto who option.
+* `/rankedwho <key>` - Setup Hypixel API key.
+* `/rating <player>` - Retrieve player's rating.
 
-### Nicked Winner Reveal
+### Planned things
 
-If you join a lobby after the game where the winner was nicked, the mod will reveal their name and remember it for futher use.
-
-#### TODO
-
-* Add options
-  * **ratingOnly** - if enabled, the mod will show rating only. Will be faster, because it omits a request to Hypixel API.
-  * etc
 * Display box on the screen with ratings:
 
 ![](https://cdn.discordapp.com/attachments/458963086305525771/566844850151096320/unknown.png)
