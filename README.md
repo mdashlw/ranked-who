@@ -1,6 +1,6 @@
 # RankedWho
 
-Helper mod for Hypixel that shows everyone's rating in Ranked SkyWars.
+RankedWho is a helper mod for Ranked SkyWars that provides a better /who output.
 
 ## WARNING
 
@@ -12,22 +12,13 @@ Download the jar file from [**GitHub releases**](https://github.com/mdashlw/rank
 
 ## Preview
 
-`Team #team_number: name rating [level] (active_kit)`
+Format: `Team #team_number: name rating level active_kit`
 
-![](https://cdn.discordapp.com/attachments/514759495721811987/564382089324265472/unknown.png)
+![](https://cdn.discordapp.com/attachments/514759495721811987/611613649123016705/unknown.png)
 
 ### Commands
 
-* `/rankedwho toggle` - Turn on/off the mod.
-* `/rankedwho autoWho` - Turn on/off the auto who option.
-* `/rankedwho <key>` - Setup Hypixel API key.
-* `/rating <player>` - Retrieve player's rating.
-
-### Planned things
-
-* Display box on the screen with ratings:
-
-![](https://cdn.discordapp.com/attachments/458963086305525771/566844850151096320/unknown.png)
+![](https://cdn.discordapp.com/attachments/514759495721811987/611591653307711498/unknown.png)
 
 ## License
 

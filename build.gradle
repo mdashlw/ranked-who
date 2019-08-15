@@ -12,35 +12,26 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id 'java'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'net.minecraftforge.gradle.forge' version '2.0.2'
 }
 
 group 'ru.mdashlw.rankedwho'
-version '3.0.0'
+version '4.0.0'
+archivesBaseName = '[1.8.9] RankedWho'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
-    implementation 'ru.mdashlw.util:common-util:2.1.1'
-    implementation 'ru.mdashlw.hypixel:hypixel-api:5.7.5'
-    implementation 'ru.mdashlw.hypixel:hypixel-ranked-api:3.4.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.9'
+    implementation 'ru.mdashlw.hypixel:hypixel-api:6.0.3'
+    implementation 'ru.mdashlw.hypixel:hypixel-ranked-api:4.0.0'
     implementation 'org.kohsuke:github-api:1.95'
-}
-
-compileKotlin {
-    kotlinOptions.jvmTarget = '1.8'
-}
-
-compileTestKotlin {
-    kotlinOptions.jvmTarget = '1.8'
 }
 
 minecraft {
@@ -72,7 +63,7 @@ jar {
 }
 
 shadowJar {
-    classifier = 'dist'
+	classifier = null
 }
 
 reobf {
@@ -88,3 +79,5 @@ task versionTxt() {
 }
 
 build.dependsOn(versionTxt)
+
+compileJava.options.encoding = 'UTF-8'
